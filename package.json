@@ -1,16 +1,18 @@
 {
-  "name": "learn-vue",
+  "name": "votsu-fe",
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@unocss/reset": "^0.33.0",
+    "axios": "^0.27.2",
     "pinia": "^2.0.14",
     "prettier": "^2.6.2",
+    "serve": "^13.0.2",
     "volar": "^0.0.0",
     "vue": "^3.2.25",
     "vue-router": "4"

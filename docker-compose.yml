@@ -1,0 +1,8 @@
+version: '3'
+services:
+  votsu-fe:
+    build: ./
+    image: votsu-fe
+    container_name: "votsu-frontend"
+    ports:
+      - "80:8080"
