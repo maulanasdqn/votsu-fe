@@ -1,32 +1,59 @@
-name: votsu-ci
+# Your workflow name.
+name: Deploy to heroku.
 
+# Run workflow on every push to master branch.
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [main]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# Your workflows jobs.
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
-    runs-on: alpine-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    runs-on: ubuntu-latest
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      # Check-out your repository.
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+### ⬇ IMPORTANT PART ⬇ ###
+
+      - name: Build, Push and Release a Docker container to Heroku. # Your custom step name
+        uses: gonuit/heroku-docker-deploy@v1.3.3 # GitHub action name (leave it as it is).
+        with:
+          # Below you must provide variables for your Heroku app.
+
+          # The email address associated with your Heroku account.
+          # If you don't want to use repository secrets (which is recommended) you can do:
+          # email: my.email@example.com
+          email: ${{ secrets.HEROKU_EMAIL }}
+          
+          # Heroku API key associated with provided user's email.
+          # Api Key is available under your Heroku account settings.
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          
+          # Name of the heroku application to which the build is to be sent.
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+
+          # (Optional, default: "./")
+          # Dockerfile directory.
+          # For example, if you have a Dockerfile in the root of your project, leave it as follows:
+          dockerfile_directory: ./
+
+          # (Optional, default: "Dockerfile")
+          # Dockerfile name.
+          dockerfile_name: Dockerfile
+
+          # (Optional, default: "")
+          # Additional options of docker build command.
+          docker_options: "--no-cache"
+
+          # (Optional, default: "web")
+          # Select the process type for which you want the docker container to be uploaded.
+          # By default, this argument is set to "web".
+          # For more information look at https://devcenter.heroku.com/articles/process-model
+          process_type: web
+          
+   
+          
+### ⬆ IMPORTANT PART ⬆ ###
