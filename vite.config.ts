@@ -1,7 +1,8 @@
-import { defineConfig } from "vite";
-import Unocss from "unocss/vite";
-import { presetUno, presetWebFonts } from "unocss";
-import vue from "@vitejs/plugin-vue";
+import { defineConfig } from 'vite'
+import { presetUno } from 'unocss'
+import Unocss from 'unocss/vite'
+import presetWebFonts from '@unocss/preset-web-fonts'
+import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,12 +16,12 @@ export default defineConfig({
       presets: [
         presetUno(),
         presetWebFonts({
-          provider: "google",
+          provider: 'google',
           fonts: {
-            sans: "Roboto",
+            sans: 'Roboto',
           },
         }),
       ],
     }),
   ],
-});
+})
