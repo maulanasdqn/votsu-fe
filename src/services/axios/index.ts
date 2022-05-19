@@ -1,3 +1,3 @@
 export const axios = {
-  baseURL: process.env.API_URL,
+  baseURL: import.meta.env.API_URL,
 }
