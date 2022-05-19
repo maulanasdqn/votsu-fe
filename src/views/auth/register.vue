@@ -1,122 +1,169 @@
 <script setup lang="ts">
-import { onUpdated } from "vue";
-import useThemeStore from "../../store/theme";
-import Navbar from "../../components/navbar/main.vue";
-const storeTheme = useThemeStore();
+import { ref } from 'vue'
+import Button from '../../components/common/VtsButton.vue'
 
-console.log(storeTheme.getTheme);
+const fullname = ref('')
+const email = ref('')
+const password = ref('')
+const confirm_password = ref('')
+const nim = ref('')
 
-onUpdated(() => {});
+const checkValid = () => {
+  if (
+    fullname.value.length > 1 &&
+    nim.value.includes('4103700') &&
+    email.value.includes('@') &&
+    email.value.length > 5 &&
+    password.value.length > 8 &&
+    password.value === confirm_password.value
+  ) {
+    return true
+  } else {
+    return false
+  }
+}
 </script>
 <template>
-  <Navbar />
   <div
-    class="flex h-screen justify-center items-center shadow-lg transition-all ease-in-out w-full dark:bg-gray-700 md:bg-white bg-yellow-100"
+    class="flex h-screen justify-start items-center shadow-lg transition-all ease-in-out w-full md:bg-white bg-yellow-100"
   >
     <div
-      class="flex md:w-1/2 w-full rounded-lg bg-yellow-100 md:bg-yellow-200 dark:bg-gray-700 dark:md:bg-gray-500 h-auto p-8 flex-col justify-between gap-y-6"
+      class="flex w-full lg:w-1/2 md:w-full md:px-[60px] px-8 h-full justify-center bg-white md:bg-white dark:bg-gray-700 h-auto py-8 flex-col gap-y-6"
     >
-      <div class="flex justify-start items-start gap-y-2 flex-col">
-        <h1
-          class="dark:text-white font-sans text-gray-500 font-bold md:text-3xl text-2xl"
-        >
-          Mari bergabung bersama kami
-        </h1>
-        <span
-          class="md:text-md text-sm text-left font-bold font-sans dark:text-white text-gray-500"
-          >Silahkan isi data anda dengan benar</span
-        >
-      </div>
-      <hr class="w-full bg-gray-600 dark:bg-white rounded my-2 shadow-md" />
-      <form action="post">
-        <div
-          class="flex flex-col h-full items-center justify-center w-full gap-y-6"
-        >
-          <div class="flex flex-col gap-y-6 w-full items-center">
-            <div class="flex flex-col w-full gap-y-6">
-              <div class="flex flex-col gap-y-3">
-                <label
-                  for="email"
-                  class="font-sans dark:text-white text-gray-500 text-sm"
-                  >Email <span class="text-red-900 font-bold">*</span>
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  class="px-3 py-3 bg-gray-100 border shadow-md border-yellow-300 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:ring-yellow-200 dark:focus:ring-gray-400 w-auto rounded-md sm:text-sm focus:ring-1"
-                  placeholder="maulana@psu.org"
-                />
-              </div>
-              <div class="flex flex-col gap-y-3">
-                <label
-                  for="password"
-                  class="font-sans dark:text-white text-gray-500 text-sm"
-                  >Kata sandi <span class="text-red-900 font-bold">*</span>
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  class="px-3 py-3 bg-gray-100 border shadow-md border-yellow-300 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:border-yellow-300 dark:focus:ring-gray-400 focus:ring-yellow-200 w-auto rounded-md sm:text-sm focus:ring-1"
-                  placeholder="Masukkan kata sandi anda"
-                />
-              </div>
-              <div class="flex flex-col gap-y-3">
-                <label
-                  for="email"
-                  class="font-sans dark:text-white text-gray-500 text-sm"
-                  >Konfirmasi kata sandi
-                  <span class="text-red-900 font-bold">*</span>
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  class="px-3 py-3 bg-gray-100 border shadow-md border-yellow-300 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:border-yellow-300 focus:ring-yellow-300 dark:focus:ring-gray-400 w-auto rounded-md sm:text-sm focus:ring-1"
-                  placeholder="Masukkan kata sandi anda"
-                />
-              </div>
-            </div>
-            <div class="flex flex-col gap-y-3 w-full">
-              <label
-                for="role"
-                class="font-sans dark:text-white text-gray-500 text-sm"
-                >Role
-                <span class="text-red-900 font-bold">*</span>
-              </label>
-              <select
-                class="px-2 shadow-md py-[12px] md:py-3.5 w-full border-1 dark:focus:border-gray-300 placeholder-slate-500 focus:border-yellow-300 focus:ring-yellow-200 border-yellow-200 focus:outline-none text-slate-500 font-medium rounded-lg bg-white dark:border-gray-300 focus:ring-1 bg-gray-100 text-md"
-                name="role"
-                id="role"
-              >
-                <option selected disabled class="rounded">
-                  Silahkan Pilih
-                </option>
-                <option value="app" class="text-gray-400 bg-gray-100 rounded">
-                  Yahahaha
-                </option>
-              </select>
-              <div class="flex font-sans items-center gap-x-4 py-2">
-                <input
-                  type="checkbox"
-                  id="syarat"
-                  class="border-yellow-200 border-1"
-                />
-                <label class="text-gray-500 dark:text-white" for="syarat"
-                  >Setuju syarat dan ketentuan</label
-                >
-              </div>
-            </div>
-          </div>
-
-          <button
-            class="dark:bg-gray-600 shadow-lg text-white font-bold border-2 border-gray-400 dark:text-white text-gray-400 rounded-full w-full px-3 py-2 text-1xl h-10 dark:focus:ring-gray-200"
+      <div class="flex flex-col gap-y-8 w-full">
+        <div class="flex justify-start items-start gap-y-2 flex-col">
+          <h1
+            class="dark:text-white font-sans text-gray-800 font-bold md:text-3xl text-2xl"
           >
-            REGISTER</button
-          ><span class="dark:text-white font-sans text-gray-600 font-medium"
-            >Sudah punya akun? silahkan
-            <router-link class="text-blue-400" to="/login"> Masuk </router-link>
-          </span>
+            Mari bergabung bersama kami
+          </h1>
+          <span
+            class="md:text-md text-sm text-left font-medium font-sans dark:text-white text-gray-500"
+            >Silahkan isi data anda dengan benar</span
+          >
         </div>
-      </form>
+        <form action="post">
+          <div
+            class="flex flex-col h-full items-center justify-center w-full gap-y-6"
+          >
+            <div class="flex flex-col gap-y-6 w-full items-center">
+              <div class="flex flex-col w-full gap-y-6">
+                <div class="flex flex-col gap-y-3">
+                  <label
+                    for="fullname"
+                    class="font-sans dark:text-white text-gray-500 text-sm"
+                    >Nama Lengkap <span class="text-red-700 font-bold">*</span>
+                  </label>
+                  <input
+                    v-model="fullname"
+                    type="text"
+                    name="fullname"
+                    class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:ring-yellow-200 dark:focus:ring-gray-400 w-auto rounded-md sm:text-sm focus:ring-1"
+                    placeholder="Maulana Sodiqin"
+                  />
+                </div>
+                <div class="flex flex-col gap-y-3">
+                  <label
+                    for="student_id"
+                    class="font-sans dark:text-white text-gray-500 text-sm"
+                    >Nomor induk mahasiswa
+                    <span class="text-red-700 font-bold">*</span>
+                  </label>
+                  <input
+                    v-model="nim"
+                    type="text"
+                    name="student_id"
+                    class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:ring-yellow-200 dark:focus:ring-gray-400 w-auto rounded-md sm:text-sm focus:ring-1"
+                    placeholder="410370062*****"
+                  />
+                </div>
+                <div class="flex flex-col gap-y-3">
+                  <label
+                    for="email"
+                    class="font-sans dark:text-white text-gray-500 text-sm"
+                    >Email <span class="text-red-700 font-bold">*</span>
+                  </label>
+                  <input
+                    v-model="email"
+                    type="email"
+                    name="email"
+                    class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:ring-yellow-200 dark:focus:ring-gray-400 w-auto rounded-md sm:text-sm focus:ring-1"
+                    placeholder="maulana@psu.org"
+                  />
+                </div>
+                <div class="flex flex-col gap-y-3">
+                  <label
+                    for="password"
+                    class="font-sans dark:text-white text-gray-500 text-sm"
+                    >Kata sandi <span class="text-red-700 font-bold">*</span>
+                  </label>
+                  <input
+                    v-model="password"
+                    type="password"
+                    name="password"
+                    class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:border-yellow-300 dark:focus:ring-gray-400 focus:ring-yellow-200 w-auto rounded-md sm:text-sm focus:ring-1"
+                    placeholder="Masukkan kata sandi anda"
+                  />
+                </div>
+                <div class="flex flex-col gap-y-3">
+                  <label
+                    for="confirm_password"
+                    class="font-sans dark:text-white text-gray-500 text-sm"
+                    >Konfirmasi kata sandi
+                    <span class="text-red-700 font-bold">*</span>
+                  </label>
+                  <input
+                    v-model="confirm_password"
+                    type="password"
+                    name="password"
+                    class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:border-yellow-300 dark:focus:ring-gray-400 focus:ring-yellow-200 w-auto rounded-md sm:text-sm focus:ring-1"
+                    placeholder="Masukkan lagi kata sandi anda"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-start w-full items-center gap-x-4">
+              <span
+                class="dark:text-white order-2 font-sans text-gray-500 font-medium"
+                >Setujui syarat & ketentuan yang berlaku
+              </span>
+              <input type="checkbox" name="" id="" />
+            </div>
+
+            <Button
+              class="w-full"
+              text="Daftar Sekarang"
+              :disabled="!checkValid()"
+            />
+
+            <span class="text-gray-500 dark:text-white font-medium font-sans"
+              >Sudah memiliki akun?
+              <router-link class="text-blue-400" to="/login">Masuk</router-link>
+            </span>
+          </div>
+        </form>
+        <span
+          class="text-gray-500 text-center dark:text-white font-medium font-sans"
+          >Kembali ke
+          <router-link class="text-blue-400" to="/">Home</router-link>
+        </span>
+      </div>
+    </div>
+    <div
+      class="lg:flex hidden w-full justify-center bg-gradient-to-bl from-blue-700 via-blue-400 to-blue-500 dark:bg-gray-700 h-full items-center"
+    >
+      <div
+        class="lg:flex hidden w-full justify-center bg-gradient-to-bl from-blue-700 via-blue-400 to-blue-500 dark:bg-gray-700 h-full items-center"
+      >
+        <div class="flex flex-col gap-y-4">
+          <h1 class="text-white lg:text-5xl md:text-4xl font-bold">
+            l'exploitation de l'home par 'ihomme
+          </h1>
+          <span class="text-3xl font-medium text-gray-300 opacity-40"
+            >― Soekarno</span
+          >
+        </div>
+      </div>
     </div>
   </div>
 </template>
