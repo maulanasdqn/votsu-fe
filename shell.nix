@@ -6,6 +6,10 @@ pkgs.mkShell {
     pkgs.nodejs-16_x
   ];
   shellHook = ''
-    zsh
+    echo "Accessing the Beast ENV..."
+    sleep 2
+    echo "Wait...."
+    sleep 2
+    echo "Success Enter the Beast ENV"
   '';
 }
