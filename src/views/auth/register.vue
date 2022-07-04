@@ -25,12 +25,12 @@ const checkValid = () => {
 </script>
 <template>
   <div
-    class="flex h-screen justify-start items-center shadow-lg transition-all ease-in-out w-full md:bg-white bg-yellow-100"
+    class="flex h-auto justify-center items-center shadow-lg transition-all ease-in-out w-full md:bg-white"
   >
     <div
-      class="flex w-full lg:w-1/2 md:w-full md:px-[60px] px-8 h-full justify-center bg-white md:bg-white dark:bg-gray-700 h-auto py-8 flex-col gap-y-6"
+      class="flex md:w-1/2 px-4 h-auto justify-center bg-white md:bg-white dark:bg-gray-700 h-auto py-8 flex-col gap-y-6"
     >
-      <div class="flex flex-col gap-y-8 w-full">
+      <div class="flex flex-col gap-y-6 w-full">
         <div class="flex justify-start items-start gap-y-2 flex-col">
           <h1
             class="dark:text-white font-sans text-gray-800 font-bold md:text-3xl text-2xl"
@@ -42,11 +42,9 @@ const checkValid = () => {
             >Silahkan isi data anda dengan benar</span
           >
         </div>
-        <form action="post">
-          <div
-            class="flex flex-col h-full items-center justify-center w-full gap-y-6"
-          >
-            <div class="flex flex-col gap-y-6 w-full items-center">
+        <form class="w-auto h-1/2" action="post">
+          <div class="flex flex-col items-center justify-center w-full gap-y-3">
+            <div class="flex flex-col gap-y-3 w-full items-center">
               <div class="flex flex-col w-full gap-y-6">
                 <div class="flex flex-col gap-y-3">
                   <label
@@ -147,22 +145,6 @@ const checkValid = () => {
           >Kembali ke
           <router-link class="text-blue-400" to="/">Home</router-link>
         </span>
-      </div>
-    </div>
-    <div
-      class="lg:flex hidden w-full justify-center bg-gradient-to-bl from-blue-700 via-blue-400 to-blue-500 dark:bg-gray-700 h-full items-center"
-    >
-      <div
-        class="lg:flex hidden w-full justify-center bg-gradient-to-bl from-blue-700 via-blue-400 to-blue-500 dark:bg-gray-700 h-full items-center"
-      >
-        <div class="flex flex-col gap-y-4">
-          <h1 class="text-white lg:text-5xl md:text-4xl font-bold">
-            l'exploitation de l'home par 'ihomme
-          </h1>
-          <span class="text-3xl font-medium text-gray-300 opacity-40"
-            >― Soekarno</span
-          >
-        </div>
       </div>
     </div>
   </div>

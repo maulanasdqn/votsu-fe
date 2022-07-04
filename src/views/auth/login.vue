@@ -1,6 +1,23 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import Button from '../../components/common/VtsButton.vue'
+import { TokenService } from '../../services/token/index.service'
+import useAuthStore from '../../store/users'
+
+const store = useAuthStore()
+const router = useRouter()
+
+const onSubmit = async (email: any, password: any) => {
+  try {
+    await store.login(email, password)
+    if (TokenService.getToken()) {
+      router.push('/user/dashboard')
+    }
+  } catch (e) {
+    console.log(e)
+  }
+}
 
 const email = ref('')
 const password = ref('')
@@ -9,7 +26,7 @@ const checkValid = () => {
   if (
     email.value.includes('@') &&
     email.value.length > 5 &&
-    password.value.length > 8
+    password.value.length > 6
   ) {
     return true
   } else {
@@ -36,7 +53,7 @@ const checkValid = () => {
             >Silahkan masuk dengan akun mu</span
           >
         </div>
-        <form action="post">
+        <form @submit.prevent="onSubmit(email, password)">
           <div
             class="flex flex-col h-full items-center justify-center w-full gap-y-6"
           >
@@ -101,13 +118,13 @@ const checkValid = () => {
       </div>
     </div>
     <div
-      class="lg:flex hidden w-full justify-center bg-gradient-to-bl from-blue-700 via-blue-400 to-blue-500 dark:bg-gray-700 h-full items-center"
+      class="lg:flex hidden w-full md:px-6 justify-center bg-gradient-to-bl from-blue-700 via-blue-400 to-blue-500 dark:bg-gray-700 h-full items-center"
     >
       <div class="flex flex-col gap-y-4">
-        <h1 class="text-white lg:text-5xl md:text-4xl font-bold">
+        <h1 class="text-white lg:text-5xl md:text-3xl font-bold">
           l'exploitation de l'home par 'ihomme
         </h1>
-        <span class="text-3xl font-medium text-gray-300 opacity-40"
+        <span class="text-3xl md:text-2xl font-medium text-gray-300 opacity-40"
           >― Soekarno</span
         >
       </div>

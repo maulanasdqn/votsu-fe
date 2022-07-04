@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { onBeforeMount, onUpdated, computed, ref, watch } from 'vue'
+import { TokenService } from '../../services/token/index.service'
 import useThemeStore from '../../store/theme'
 
 const storeTheme = useThemeStore()
+
+const isLoggedIn = TokenService.getToken()
 
 onBeforeMount(() => {
   storeTheme.initTheme()
@@ -17,7 +20,6 @@ const toggleTheme = () => {
 const theme = computed(() => storeTheme.getTheme)
 
 onUpdated(() => {
-  console.log(theme.value)
   if (isDark.value) {
     document.querySelector('html')?.classList.add('dark')
   } else {
@@ -26,7 +28,6 @@ onUpdated(() => {
 })
 
 watch(theme, (newTheme, oldVal) => {
-  console.log(oldVal)
   newTheme === 'light'
     ? document.querySelector('html')?.classList.add('dark')
     : document.querySelector('html')?.classList.remove('dark')
@@ -42,6 +43,7 @@ watch(theme, (newTheme, oldVal) => {
 
     <div class="flex justify-beetween gap-x-4 items-center px-6 cursor-pointer">
       <div
+        v-if="!isLoggedIn"
         class="hidden md:flex justify-center items-center dark:text-white gap-x-3 text-gray-700"
       >
         <router-link
@@ -53,6 +55,16 @@ watch(theme, (newTheme, oldVal) => {
           to="/register"
           class="text-1xl font-bold flex items-center justify-center border-2 dark:bg-gray-800 bg-gray-700 dark:rounded-none rounded-lg dark:border-none p-2 text-white"
           >Daftar</router-link
+        >
+      </div>
+      <div
+        v-else
+        class="hidden md:flex justify-center items-center dark:text-white gap-x-3 text-gray-700"
+      >
+        <router-link
+          to="/user/dashboard"
+          class="text-gray-700 text-1xl font-bold flex dark:bg-white dark:text-gray-800 items-center justify-center dark:border-2 dark:border-gray-300 w-auto h-auto dark:rounded-lg p-2"
+          >Dashboard</router-link
         >
       </div>
       <div
