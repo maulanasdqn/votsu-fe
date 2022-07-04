@@ -55,9 +55,9 @@ const checkValid = () => {
             </div>
             <div class="flex justify-end w-full">
               <span class="dark:text-white font-sans text-gray-500 font-medium"
-                >Lupa kata sandi?
-                <router-link class="text-blue-400" to="/forgot">
-                  Reset
+                >Sudah ingat akun anda? mari
+                <router-link class="text-blue-400" to="/login">
+                  Masuk
                 </router-link>
               </span>
             </div>
