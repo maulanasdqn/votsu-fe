@@ -30,7 +30,7 @@ const onLogout = () => {
   >
     <div class="pt-4 px-6">
       <div class="flex items-center bg-blue-300 rounded-md">
-        <div class="flex items-center justify-center w-auto px-2">
+        <div class="lg:flex hidden items-center justify-center w-auto px-2">
           <img
             src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp"
             class="rounded-full w-10"
