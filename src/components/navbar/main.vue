@@ -6,6 +6,7 @@ import useThemeStore from '../../store/theme'
 const storeTheme = useThemeStore()
 
 const isLoggedIn = TokenService.getToken()
+const isMobileMenu = ref(false)
 
 onBeforeMount(() => {
   storeTheme.initTheme()
@@ -35,7 +36,7 @@ watch(theme, (newTheme, oldVal) => {
 </script>
 <template>
   <nav
-    class="sticky dark:bg-gray-800 md:bg-white bg-white flex w-full h-auto py-4 md:pl-16 justify-between transition-all ease-in-out font-sans"
+    class="sticky top-0 dark:bg-gray-800 md:bg-white bg-white flex w-full h-auto py-4 md:pl-16 justify-between transition-all ease-in-out font-sans"
   >
     <div class="flex px-4 gap-x-4 items-center">
       <h1 class="dark:text-white text-gray-600 font-bold text-3xl">Votsu</h1>
@@ -66,6 +67,22 @@ watch(theme, (newTheme, oldVal) => {
           class="text-gray-700 text-1xl font-bold flex dark:bg-white dark:text-gray-800 items-center justify-center dark:border-2 dark:border-gray-300 w-auto h-auto dark:rounded-lg p-2"
           >Dashboard</router-link
         >
+      </div>
+      <div
+        class="flex md:hidden justify-center items-center dark:text-white gap-x-3 text-gray-700"
+      >
+        <span
+          @click="isMobileMenu = !isMobileMenu"
+          class="text-gray-700 text-1xl font-bold flex dark:bg-white dark:text-gray-800 items-center justify-center dark:border-2 dark:border-gray-300 w-auto h-auto dark:rounded-lg p-2"
+          >Menu</span
+        >
+      </div>
+      <div
+        v-if="isMobileMenu"
+        class="flex flex-col absolute top-14 bg-gray-100 w-auto py-2 px-3 rounded-md gap-y-3"
+      >
+        <router-link to="/login">Masuk</router-link>
+        <router-link to="/register">Daftar</router-link>
       </div>
       <div
         @click="toggleTheme()"

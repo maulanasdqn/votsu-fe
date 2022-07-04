@@ -4,16 +4,20 @@ import { useRouter } from 'vue-router'
 import Button from '../../components/common/VtsButton.vue'
 import { TokenService } from '../../services/token/index.service'
 import useAuthStore from '../../store/users'
+import Loading from '../../components/loading/index.vue'
 
 const store = useAuthStore()
 const router = useRouter()
+const isLoading = ref(false)
 
 const onSubmit = async (email: any, password: any) => {
   try {
+    isLoading.value = true
     await store.login(email, password)
     if (TokenService.getToken()) {
       router.push('/user/dashboard')
     }
+    isLoading.value = false
   } catch (e) {
     console.log(e)
   }
@@ -120,14 +124,16 @@ const checkValid = () => {
     <div
       class="lg:flex hidden w-full md:px-6 justify-center bg-gradient-to-bl from-blue-700 via-blue-400 to-blue-500 dark:bg-gray-700 h-full items-center"
     >
-      <div class="flex flex-col gap-y-4">
-        <h1 class="text-white lg:text-5xl md:text-3xl font-bold">
-          l'exploitation de l'home par 'ihomme
+      <div class="flex flex-col gap-y-4 w-full">
+        <h1 class="text-white text-center lg:text-5xl md:text-3xl font-bold">
+          l'exploitation de <br />
+          l'home par 'ihomme
         </h1>
         <span class="text-3xl md:text-2xl font-medium text-gray-300 opacity-40"
           >― Soekarno</span
         >
       </div>
     </div>
+    <Loading v-if="isLoading" />
   </div>
 </template>

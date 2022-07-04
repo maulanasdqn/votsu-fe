@@ -8,6 +8,7 @@ import ApiService from './services/api/index.service'
 import App from './App.vue'
 import Sidebar from './components/sidebar/main.vue'
 import BottomNavbar from './components/navbar/panel.vue'
+import Loading from './components/loading/index.vue'
 
 ApiService.init('https://api-votsu.herokuapp.com/')
 // ApiService.init('http://localhost:3000/')
@@ -22,4 +23,5 @@ app.use(router)
 app.use(pinia)
 app.component('Sidebar', Sidebar)
 app.component('BottomNavbar', BottomNavbar)
+app.component('Loading', Loading)
 app.mount('#app')
