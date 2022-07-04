@@ -9,8 +9,8 @@ import App from './App.vue'
 import Sidebar from './components/sidebar/main.vue'
 import BottomNavbar from './components/navbar/panel.vue'
 
-// ApiService.init('https://api-votsu.herokuapp.com/')
-ApiService.init('http://localhost:3000/')
+ApiService.init('https://api-votsu.herokuapp.com/')
+// ApiService.init('http://localhost:3000/')
 
 if (TokenService.getToken()) {
   ApiService.setHeader()
