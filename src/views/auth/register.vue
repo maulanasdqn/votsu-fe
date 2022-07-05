@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import useAuthStore from '../../store/users'
-import { useRouter } from 'vue-router'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import useAuthStore from '../../store/users'
 import Button from '../../components/common/VtsButton.vue'
-import { isPlainObject } from '@vue/shared'
 
 const store = useAuthStore()
 const router = useRouter()
@@ -16,11 +15,51 @@ const nim = ref('')
 const grade = ref('')
 const isLoading = ref(false)
 
+const fullnameValidation = () => {
+  if (fullname.value.length < 5 && fullname.value.length !== 0) return false
+  return true
+}
+
+const studentIdValidation = () => {
+  if (nim.value.length < 14 && nim.value.length !== 0) return false
+  return true
+}
+
+const studentIdValidationInformatics = () => {
+  if (!nim.value.includes('410370062') && nim.value.length !== 0) return false
+  return true
+}
+
+const gradeValidation = () => {
+  if (grade.value.length < 1 && grade.value.length !== 0) return false
+  return true
+}
+
+const emailValidation = () => {
+  const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+  if (!regexEmail.test(email.value) && email.value.length !== 0) return false
+  return true
+}
+
+const passwordValidation = () => {
+  if (password.value.length > 5 && password.value.length !== 0) return true
+  return false
+}
+
+const confirmPasswordValidation = () => {
+  if (
+    JSON.stringify(confirm_password.value) !== JSON.stringify(password.value) &&
+    confirm_password.value.length !== 0
+  )
+    return true
+  return false
+}
+
 const checkValid = () => {
   if (
-    fullname.value.length > 1 &&
+    fullname.value.length > 5 &&
     grade.value.length > 1 &&
-    nim.value.includes('4103700') &&
+    nim.value.includes('410370062') &&
     email.value.includes('@') &&
     email.value.length > 5 &&
     password.value.length > 5 &&
@@ -85,6 +124,11 @@ const register = async () => {
                     class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:ring-yellow-200 dark:focus:ring-gray-400 w-auto rounded-md sm:text-sm focus:ring-1"
                     placeholder="Maulana Sodiqin"
                   />
+                  <span
+                    v-if="!fullnameValidation()"
+                    class="text-red-900 font-xs font-medium"
+                    >Nama harus lebih dari 3 karakter !</span
+                  >
                 </div>
                 <div class="flex flex-col gap-y-3">
                   <label
@@ -100,10 +144,20 @@ const register = async () => {
                     class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:ring-yellow-200 dark:focus:ring-gray-400 w-auto rounded-md sm:text-sm focus:ring-1"
                     placeholder="410370062*****"
                   />
+                  <span
+                    v-if="!studentIdValidation()"
+                    class="text-red-900 font-xs font-medium"
+                    >NIM harus lebih dari 16 karakter !</span
+                  >
+                  <span
+                    v-if="!studentIdValidationInformatics()"
+                    class="text-red-900 font-xs font-medium"
+                    >NIM anda bukan dari Teknik Informatika !</span
+                  >
                 </div>
                 <div class="flex flex-col gap-y-3">
                   <label
-                    for="student_id"
+                    for="grade"
                     class="font-sans dark:text-white text-gray-500 text-sm"
                     >Kelas
                     <span class="text-red-700 font-bold">*</span>
@@ -115,6 +169,11 @@ const register = async () => {
                     class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:ring-yellow-200 dark:focus:ring-gray-400 w-auto rounded-md sm:text-sm focus:ring-1"
                     placeholder="A1"
                   />
+                  <span
+                    v-if="!gradeValidation()"
+                    class="text-red-900 font-xs font-medium"
+                    >Kelas harus minimal 2 karakter !</span
+                  >
                 </div>
                 <div class="flex flex-col gap-y-3">
                   <label
@@ -129,6 +188,11 @@ const register = async () => {
                     class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:ring-yellow-200 dark:focus:ring-gray-400 w-auto rounded-md sm:text-sm focus:ring-1"
                     placeholder="maulana@psu.org"
                   />
+                  <span
+                    v-if="!emailValidation()"
+                    class="text-red-900 font-xs font-medium"
+                    >Email tidak valid !</span
+                  >
                 </div>
                 <div class="flex flex-col gap-y-3">
                   <label
@@ -143,6 +207,11 @@ const register = async () => {
                     class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:border-yellow-300 dark:focus:ring-gray-400 focus:ring-yellow-200 w-auto rounded-md sm:text-sm focus:ring-1"
                     placeholder="Masukkan kata sandi anda"
                   />
+                  <span
+                    v-if="!passwordValidation()"
+                    class="text-red-900 font-xs font-medium"
+                    >Password harus lebih dari 6 karakter !</span
+                  >
                 </div>
                 <div class="flex flex-col gap-y-3">
                   <label
@@ -158,6 +227,11 @@ const register = async () => {
                     class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:border-yellow-300 dark:focus:ring-gray-400 focus:ring-yellow-200 w-auto rounded-md sm:text-sm focus:ring-1"
                     placeholder="Masukkan lagi kata sandi anda"
                   />
+                  <span
+                    v-if="confirmPasswordValidation()"
+                    class="text-red-900 font-xs font-medium"
+                    >Konfirmasi password tidak sesuai !</span
+                  >
                 </div>
               </div>
             </div>
