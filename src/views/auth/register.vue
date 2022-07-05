@@ -1,20 +1,29 @@
 <script setup lang="ts">
+import useAuthStore from '../../store/users'
+import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import Button from '../../components/common/VtsButton.vue'
+import { isPlainObject } from '@vue/shared'
+
+const store = useAuthStore()
+const router = useRouter()
 
 const fullname = ref('')
 const email = ref('')
 const password = ref('')
 const confirm_password = ref('')
 const nim = ref('')
+const grade = ref('')
+const isLoading = ref(false)
 
 const checkValid = () => {
   if (
     fullname.value.length > 1 &&
+    grade.value.length > 1 &&
     nim.value.includes('4103700') &&
     email.value.includes('@') &&
     email.value.length > 5 &&
-    password.value.length > 8 &&
+    password.value.length > 5 &&
     password.value === confirm_password.value
   ) {
     return true
@@ -22,15 +31,32 @@ const checkValid = () => {
     return false
   }
 }
+
+const register = async () => {
+  try {
+    isLoading.value = true
+    await store.register(
+      email.value,
+      password.value,
+      fullname.value,
+      grade.value,
+      nim.value
+    )
+    isLoading.value = false
+    router.push('/login')
+  } catch (e) {
+    console.log(e)
+  }
+}
 </script>
 <template>
   <div
-    class="flex h-auto justify-center items-center shadow-lg transition-all ease-in-out w-full md:bg-white"
+    class="flex h-screen justify-center items-center overflow-visible shadow-lg transition-all ease-in-out w-full md:bg-white"
   >
     <div
-      class="flex md:w-1/2 px-4 h-auto justify-center bg-white md:bg-white dark:bg-gray-700 h-auto py-8 flex-col gap-y-6"
+      class="flex w-full lg:w-1/2 md:px-16 px-6 h-full justify-center bg-white md:bg-white dark:bg-gray-700 h-full py-8 flex-col gap-y-6 overflow-y-auto"
     >
-      <div class="flex flex-col gap-y-6 w-full">
+      <div class="flex flex-col gap-y-6 py-6 w-full h-full">
         <div class="flex justify-start items-start gap-y-2 flex-col">
           <h1
             class="dark:text-white font-sans text-gray-800 font-bold md:text-3xl text-2xl"
@@ -42,7 +68,7 @@ const checkValid = () => {
             >Silahkan isi data anda dengan benar</span
           >
         </div>
-        <form class="w-auto h-1/2" action="post">
+        <form class="w-auto h-1/2" @submit.prevent="register()">
           <div class="flex flex-col items-center justify-center w-full gap-y-3">
             <div class="flex flex-col gap-y-3 w-full items-center">
               <div class="flex flex-col w-full gap-y-6">
@@ -73,6 +99,21 @@ const checkValid = () => {
                     name="student_id"
                     class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:ring-yellow-200 dark:focus:ring-gray-400 w-auto rounded-md sm:text-sm focus:ring-1"
                     placeholder="410370062*****"
+                  />
+                </div>
+                <div class="flex flex-col gap-y-3">
+                  <label
+                    for="student_id"
+                    class="font-sans dark:text-white text-gray-500 text-sm"
+                    >Kelas
+                    <span class="text-red-700 font-bold">*</span>
+                  </label>
+                  <input
+                    v-model="grade"
+                    type="text"
+                    name="grade"
+                    class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:ring-yellow-200 dark:focus:ring-gray-400 w-auto rounded-md sm:text-sm focus:ring-1"
+                    placeholder="A1"
                   />
                 </div>
                 <div class="flex flex-col gap-y-3">
@@ -138,14 +179,20 @@ const checkValid = () => {
               >Sudah memiliki akun?
               <router-link class="text-blue-400" to="/login">Masuk</router-link>
             </span>
+            <span
+              class="text-gray-500 text-center dark:text-white font-medium font-sans"
+              >Kembali ke
+              <router-link class="text-blue-400" to="/">Home</router-link>
+            </span>
           </div>
         </form>
-        <span
-          class="text-gray-500 text-center dark:text-white font-medium font-sans"
-          >Kembali ke
-          <router-link class="text-blue-400" to="/">Home</router-link>
-        </span>
       </div>
     </div>
+    <div
+      class="lg:flex hidden h-full w-full md:px-6 justify-center bg-gradient-to-bl from-blue-700 via-blue-400 to-blue-500 dark:bg-gray-700 h-full items-center"
+    >
+      <div class="flex flex-col gap-y-4 w-full"></div>
+    </div>
+    <Loading v-if="isLoading" />
   </div>
 </template>

@@ -63,15 +63,23 @@ const AuthService = {
     ApiService.unmount401Interceptor()
   },
 
-  signup: async function (email: any, password: any, name: any) {
+  signup: async function (
+    email: any,
+    password: any,
+    fullname: any,
+    grade: any,
+    studentId: any
+  ) {
     const signupData = {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       url: '/auth/local/register',
       data: {
-        email: email,
-        password: password,
-        name: name,
+        email,
+        password,
+        fullname,
+        grade,
+        student_id: studentId,
       },
     }
 

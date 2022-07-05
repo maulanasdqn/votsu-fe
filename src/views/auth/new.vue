@@ -1,37 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 import Button from '../../components/common/VtsButton.vue'
-import { TokenService } from '../../services/token/index.service'
-import useAuthStore from '../../store/users'
-import Loading from '../../components/loading/index.vue'
-
-const store = useAuthStore()
-const router = useRouter()
-const isLoading = ref(false)
-
-const onSubmit = async (email: any, password: any) => {
-  try {
-    isLoading.value = true
-    await store.login(email, password)
-    if (TokenService.getToken()) {
-      router.push('/user/dashboard')
-    }
-    isLoading.value = false
-  } catch (e) {
-    console.log(e)
-  }
-}
-
 const email = ref('')
-const password = ref('')
 
 const checkValid = () => {
-  if (
-    email.value.includes('@') &&
-    email.value.length > 5 &&
-    password.value.length > 6
-  ) {
+  if (email.value.includes('@') && email.value.length > 5) {
     return true
   } else {
     return false
@@ -45,19 +18,19 @@ const checkValid = () => {
     <div
       class="flex lg:w-1/2 w-full h-full justify-center bg-white md:bg-white dark:bg-gray-700 dark:md:bg-gray-500 h-auto p-8 flex-col gap-y-6"
     >
-      <div class="flex flex-col gap-y-8 w-full">
+      <div class="flex flex-col gap-y-4 w-full">
         <div class="flex justify-start items-start gap-y-2 flex-col">
           <h1
             class="dark:text-white font-sans text-gray-800 font-bold md:text-3xl text-2xl"
           >
-            Selamat datang kembali
+            Ubah kata sandi
           </h1>
           <span
             class="md:text-md text-sm text-left font-medium font-sans dark:text-white text-gray-500"
-            >Silahkan masuk dengan akun mu</span
+            >Silahkan ubah kata sandi yang mudah di ingat.</span
           >
         </div>
-        <form @submit.prevent="onSubmit(email, password)">
+        <form action="post">
           <div
             class="flex flex-col h-full items-center justify-center w-full gap-y-6"
           >
@@ -79,31 +52,31 @@ const checkValid = () => {
                 </div>
                 <div class="flex flex-col gap-y-3">
                   <label
-                    for="password"
+                    for="email"
                     class="font-sans dark:text-white text-gray-500 text-sm"
-                    >Kata sandi <span class="text-red-700 font-bold">*</span>
+                    >Email <span class="text-red-700 font-bold">*</span>
                   </label>
                   <input
-                    v-model="password"
-                    type="password"
-                    name="password"
-                    class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:border-yellow-300 dark:focus:ring-gray-400 focus:ring-yellow-200 w-auto rounded-md sm:text-sm focus:ring-1"
-                    placeholder="Masukkan kata sandi anda"
+                    v-model="email"
+                    type="email"
+                    name="email"
+                    class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:ring-yellow-200 dark:focus:ring-gray-400 w-auto rounded-md sm:text-sm focus:ring-1"
+                    placeholder="maulana@psu.org"
                   />
                 </div>
               </div>
             </div>
             <div class="flex justify-end w-full">
               <span class="dark:text-white font-sans text-gray-500 font-medium"
-                >Lupa kata sandi?
-                <router-link class="text-blue-400" to="/forgot">
-                  Reset
+                >Sudah ingat akun anda? mari
+                <router-link class="text-blue-400" to="/login">
+                  Masuk
                 </router-link>
               </span>
             </div>
             <Button
               class="w-full"
-              text="Masuk Sekarang"
+              text="Reset Kata Sandi"
               :disabled="!checkValid()"
             />
             <span class="text-gray-500 dark:text-white font-medium font-sans"
@@ -122,10 +95,9 @@ const checkValid = () => {
       </div>
     </div>
     <div
-      class="lg:flex hidden w-full md:px-6 justify-center bg-gradient-to-bl from-blue-700 via-blue-400 to-blue-500 dark:bg-gray-700 h-full items-center"
+      class="lg:flex hidden w-full justify-center bg-gradient-to-bl from-blue-700 via-blue-400 to-blue-500 dark:bg-gray-700 h-full items-center"
     >
-      <div class="flex flex-col gap-y-4 w-full"></div>
+      <div class="flex flex-col gap-y-4"></div>
     </div>
-    <Loading v-if="isLoading" />
   </div>
 </template>
