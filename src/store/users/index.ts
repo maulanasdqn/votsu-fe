@@ -35,6 +35,30 @@ const useAuthStore = defineStore('auth', {
       return false
     },
 
+    async register(
+      email: any,
+      password: any,
+      fullname: any,
+      grade: any,
+      studentId: any
+    ) {
+      try {
+        const res = await AuthService.signup(
+          email,
+          password,
+          fullname,
+          grade,
+          studentId
+        )
+        this.authenticated = true
+        return res
+      } catch (e) {
+        console.log(e)
+      }
+
+      return false
+    },
+
     async me() {
       try {
         const res = await getUsers()

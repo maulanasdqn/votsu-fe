@@ -84,14 +84,7 @@ const checkValid = () => {
     <div
       class="lg:flex hidden w-full justify-center bg-gradient-to-bl from-blue-700 via-blue-400 to-blue-500 dark:bg-gray-700 h-full items-center"
     >
-      <div class="flex flex-col gap-y-4">
-        <h1 class="text-white lg:text-5xl md:text-4xl font-bold">
-          l'exploitation de l'home par 'ihomme
-        </h1>
-        <span class="text-3xl font-medium text-gray-300 opacity-40"
-          >― Soekarno</span
-        >
-      </div>
+      <div class="flex flex-col gap-y-4"></div>
     </div>
   </div>
 </template>
