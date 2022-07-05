@@ -2,6 +2,7 @@
 import { onBeforeMount, onUpdated, computed, ref, watch } from 'vue'
 import { TokenService } from '../../services/token/index.service'
 import useThemeStore from '../../store/theme'
+import Logo from '../../assets/logo/LogoVotsu.svg'
 
 const storeTheme = useThemeStore()
 
@@ -39,7 +40,9 @@ watch(theme, (newTheme, oldVal) => {
     class="sticky top-0 dark:bg-gray-800 md:bg-white bg-white flex w-full h-auto py-4 md:pl-16 justify-between transition-all ease-in-out font-sans"
   >
     <div class="flex px-4 gap-x-4 items-center">
-      <h1 class="dark:text-white text-gray-600 font-bold text-3xl">Votsu</h1>
+      <h1 class="dark:text-white text-gray-600 font-bold text-3xl">
+        <img width="60" :src="Logo" alt="" />
+      </h1>
     </div>
 
     <div class="flex justify-beetween gap-x-4 items-center px-6 cursor-pointer">

@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<props>(), {
 </script>
 <template>
   <button
-    class="dark:bg-gray-400 bg-blue-400 h-auto px-6 py-3 rounded-xl font-bold text-white shadow-lg hover:bg-blue-500 dark:hover:bg-gray-500 disabled:bg-gray-100 disabled:text-gray-300 disabled:hover:bg-gray-200"
+    class="dark:bg-gray-400 bg-blue-400 h-auto md:px-6 md:py-3 p-2 rounded-xl font-bold text-white shadow-lg hover:bg-blue-500 dark:hover:bg-gray-500 disabled:bg-gray-100 disabled:text-gray-300 disabled:hover:bg-gray-200 text-xs md:text-md"
     :class="
       ({ 'px-4 py-3': isSmall },
       { 'w-full': isFull },

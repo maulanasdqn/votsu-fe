@@ -11,7 +11,7 @@ const props = withDefaults(defineProps<props>(), {
 </script>
 <template>
   <div
-    class="flex h-screen w-full bg-white md:p-16 px-4 dark:bg-gray-700"
+    class="flex h-screen items-start justify-between w-full bg-white md:p-16 px-4 dark:bg-gray-700"
     :class="(color, { 'justify-center items-center': isCenter })"
   >
     <slot></slot>
