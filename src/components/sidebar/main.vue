@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import Avatar from "vue-boring-avatars";
-import { ref, onBeforeMount } from "vue";
-import { TokenService } from "../../services/token/index.service";
-import { useRouter } from "vue-router";
-import useAuthStore from "../../store/users";
+import Avatar from 'vue-boring-avatars'
+import { ref, onBeforeMount } from 'vue'
+import { TokenService } from '../../services/token/index.service'
+import { useRouter } from 'vue-router'
+import useAuthStore from '../../store/users'
 
-const store = useAuthStore();
-const router = useRouter();
+const store = useAuthStore()
+const router = useRouter()
 
 const currentUsers = ref({
-  fullname: "",
-  role: "",
-});
+  fullname: '',
+  role: '',
+})
 
 onBeforeMount(async () => {
-  const resUsers = await store.me();
-  currentUsers.value.fullname = resUsers.fullname;
-  currentUsers.value.role = resUsers.role_id === 1 ? "Pemilih" : "Panitia";
-});
+  const resUsers = await store.me()
+  currentUsers.value.fullname = resUsers.fullname
+  currentUsers.value.role = resUsers.role_id === 1 ? 'Pemilih' : 'Panitia'
+})
 
 const onLogout = () => {
-  TokenService.removeToken();
-  router.push("/");
-};
+  TokenService.removeToken()
+  router.push('/')
+}
 </script>
 <template>
   <div
-    class="w-1/3 hidden h-full shadow-md bg-white md:flex flex-col gap-y-4"
+    class="w-1/3 hidden h-full shadow-md bg-white md:flex flex-col gap-y-4 max-w-xs"
     id="sidenavSecExample"
   >
     <div class="pt-4 px-6">

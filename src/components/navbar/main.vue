@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { onBeforeMount, onUpdated, computed, ref, watch } from "vue";
-import { TokenService } from "../../services/token/index.service";
-import useThemeStore from "../../store/theme";
-import Logo from "../../assets/logo/LogoVotsu.svg";
+import { onBeforeMount, onUpdated, computed, ref, watch } from 'vue'
+import { TokenService } from '../../services/token/index.service'
+import useThemeStore from '../../store/theme'
+import Logo from '../../assets/logo/LogoVotsu.svg'
 
-const storeTheme = useThemeStore();
+const storeTheme = useThemeStore()
 
-const isLoggedIn = TokenService.getToken();
-const isMobileMenu = ref(false);
+const isLoggedIn = TokenService.getToken()
+const isMobileMenu = ref(false)
 
-const isDark = ref(false);
+const isDark = ref(false)
 </script>
 <template>
   <nav
@@ -64,7 +64,6 @@ const isDark = ref(false);
         <router-link to="/register">Daftar</router-link>
       </div>
       <div
-        @click="toggleTheme()"
         class="flex h-5 w-10 rounded-xl transition-all justify-between dark:bg-white ease-in ease-out bg-gray-100 border-1 border-gray-300 dark:border-gray-400"
       >
         <svg
