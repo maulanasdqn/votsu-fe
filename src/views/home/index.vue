@@ -17,6 +17,23 @@ import Banner from '../../assets/illustrations/BannerIlustration.svg'
         <Button text="Pelajari Lebih Lanjut"></Button>
         <Button is-with-border text="Lihat Kandidat"></Button>
       </div>
+      <div class="flex items-center gap-8">
+        <CardPoll
+          candidate="Fahmi Sugiarto"
+          image="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1184px-Vue.js_Logo_2.svg.png"
+          poll="20"
+        />
+        <CardPoll
+          candidate="Fahmi Sugiarto"
+          image="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1184px-Vue.js_Logo_2.svg.png"
+          poll="20"
+        />
+        <CardPoll
+          candidate="Fahmi Sugiarto"
+          image="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1184px-Vue.js_Logo_2.svg.png"
+          poll="20"
+        />
+      </div>
     </div>
     <div class="flex justify-end w-full items-center h-full">
       <img class="sm:w-1/2 w-full pt-[160px] sm:p-0" :src="Banner" alt="" />

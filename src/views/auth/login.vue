@@ -30,7 +30,7 @@ const checkValid = () => {
   if (
     email.value.includes('@') &&
     email.value.length > 5 &&
-    password.value.length > 6
+    password.value.length >= 6
   ) {
     return true
   } else {
