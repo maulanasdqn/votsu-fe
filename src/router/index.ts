@@ -5,6 +5,7 @@ import Login from '../views/auth/login.vue'
 import Register from '../views/auth/register.vue'
 import Forgot from '../views/auth/forgot.vue'
 import Dashboard from '../views/user/index.vue'
+import Elections from '../views/candidate/index.vue'
 
 const routes = [
   {
@@ -45,6 +46,14 @@ const routes = [
     meta: {
       public: false,
       title_browser: 'Votsu | Dashboard',
+    },
+  },
+  {
+    path: '/user/election',
+    component: Elections,
+    meta: {
+      public: false,
+      title_browser: 'Votsu | Elections',
     },
   },
 ]

@@ -18,5 +18,6 @@ pkgs.mkShell {
     echo "Setting up dotenv"
     sleep 1
     echo "API_URL=https://api-votsu.herokuapp.com/" > .env
+    zsh
   '';
 }
