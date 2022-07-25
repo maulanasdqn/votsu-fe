@@ -1,27 +1,28 @@
 <script setup lang="ts">
-import { ref, onBeforeMount } from 'vue'
-import { TokenService } from '../../services/token/index.service'
-import { useRouter } from 'vue-router'
-import useAuthStore from '../../store/users'
+import Avatar from "vue-boring-avatars";
+import { ref, onBeforeMount } from "vue";
+import { TokenService } from "../../services/token/index.service";
+import { useRouter } from "vue-router";
+import useAuthStore from "../../store/users";
 
-const store = useAuthStore()
-const router = useRouter()
+const store = useAuthStore();
+const router = useRouter();
 
 const currentUsers = ref({
-  fullname: '',
-  role: '',
-})
+  fullname: "",
+  role: "",
+});
 
 onBeforeMount(async () => {
-  const resUsers = await store.me()
-  currentUsers.value.fullname = resUsers.fullname
-  currentUsers.value.role = resUsers.role_id === 1 ? 'Pemilih' : 'Panitia'
-})
+  const resUsers = await store.me();
+  currentUsers.value.fullname = resUsers.fullname;
+  currentUsers.value.role = resUsers.role_id === 1 ? "Pemilih" : "Panitia";
+});
 
 const onLogout = () => {
-  TokenService.removeToken()
-  router.push('/')
-}
+  TokenService.removeToken();
+  router.push("/");
+};
 </script>
 <template>
   <div
@@ -31,11 +32,7 @@ const onLogout = () => {
     <div class="pt-4 px-6">
       <div class="flex items-center bg-blue-300 rounded-md">
         <div class="lg:flex hidden items-center justify-center w-auto px-2">
-          <img
-            src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp"
-            class="rounded-full w-10"
-            alt="Avatar"
-          />
+          <Avatar :name="currentUsers.fullname" />
         </div>
         <div class="grow bg-blue-400 py-2 px-2 rounded-lg">
           <p class="text-sm font-semibold text-white">
