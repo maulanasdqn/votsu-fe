@@ -1,42 +1,64 @@
 <script setup lang="ts">
 import Navbar from '../../components/navbar/main.vue'
 import Layout from '../../components/layout/VtsLayout.vue'
-import Banner from '../../assets/illustrations/BannerIlustration.svg'
+import Gambar from '../../assets/Landing.png'
 </script>
 <template>
   <Navbar />
   <Layout>
-    <div class="flex flex-col md:w-1/2 w-full gap-y-6 absolute px-4">
-      <h1 class="text-6xl dark:text-white font-bold">Votsu</h1>
-      <h2 class="text-1xl dark:text-white font-medium">
-        Votsu adalah website voting suara sebagai alternatif untuk melakukan
-        pemilihan ketua pegurus Himpuan Mahasiswa Teknik Informatika secara
-        online.
-      </h2>
-      <div class="flex gap-x-4">
-        <Button text="Pelajari Lebih Lanjut"></Button>
-        <Button is-with-border text="Lihat Kandidat"></Button>
+    <section id="home" class="w-full">
+      <div class="flex flex-col w-full gap-y-12">
+        <div class="flex md:flex-row flex-col w-full px-10">
+          <div class="align-items-center justify-center md:pt-36 pt-4 md:px-18">
+            <h1 class="text-4xl font-bold">VOTSU</h1>
+            <h2 class="text-1xl py-4 dark:text-white font-medium w-full">
+              Votsu adalah website voting suara sebagai alternatif untuk
+              melakukan pemilihan ketua pegurus Himpuan Mahasiswa Teknik
+              Informatika secara online.
+            </h2>
+            <div class="flex gap-2">
+              <Button text="Pelajari Lebih Lanjut"></Button>
+              <Button is-with-border text="Lihat Kandidat"></Button>
+            </div>
+          </div>
+          <img :src="Gambar" alt="" />
+        </div>
       </div>
-      <div class="flex items-center gap-8">
+    </section>
+  </Layout>
+  <Layout>
+    <section class="" id="candidat">
+      <h1 class="text-center font-bold text-4xl">Kandidat</h1>
+      <p class="text-center text-gray">Pilih kandidat Terbaikmu</p>
+      <div
+        class="grid items-center md:px-40 px-8 py-4 gap-8 md:grid-cols-3 grid-cols-2"
+      >
         <CardPoll
+          class="shadow-md"
           candidate="Fahmi Sugiarto"
-          image="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1184px-Vue.js_Logo_2.svg.png"
+          image="https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg"
           poll="20"
         />
         <CardPoll
+          class="shadow-md"
           candidate="Fahmi Sugiarto"
-          image="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1184px-Vue.js_Logo_2.svg.png"
+          image="https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg"
           poll="20"
         />
         <CardPoll
+          class="shadow-md"
           candidate="Fahmi Sugiarto"
-          image="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1184px-Vue.js_Logo_2.svg.png"
+          image="https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg"
+          poll="20"
+        />
+        <CardPoll
+          class="shadow-md"
+          candidate="Fahmi Sugiarto"
+          image="https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg"
           poll="20"
         />
       </div>
-    </div>
-    <div class="flex justify-end w-full items-center h-full">
-      <img class="sm:w-1/2 w-full pt-[160px] sm:p-0" :src="Banner" alt="" />
-    </div>
+      <div class="flex justify-end w-full items-center h-full"></div>
+    </section>
   </Layout>
 </template>
