@@ -45,20 +45,20 @@ const onLogout = () => {
       </div>
     </div>
     <ul class="relative px-1 gap-y-2 flex flex-col">
-      <div v-if="currentUsers.role === 'Pemilih'">
-        <li class="flex items-center px-4">
-          <router-link to="/user/dashboard">Dashboard</router-link>
-        </li>
-        <li class="flex items-center px-4">
-          <router-link to="/user/election">Pemilihan</router-link>
-        </li>
-      </div>
-      <div v-else-if="currentUsers.role === 'Panitia'">
+      <div v-if="currentUsers.role === 'Panitia'">
         <li class="flex items-center px-4">
           <router-link to="/user/dashboard">Akun</router-link>
         </li>
         <li class="flex items-center px-4">
           <router-link to="/user/election">Kandidat</router-link>
+        </li>
+      </div>
+      <div v-else-if="currentUsers.role === 'Pemilih'">
+        <li class="flex items-center px-4">
+          <router-link to="/user/dashboard">Dashboard</router-link>
+        </li>
+        <li class="flex items-center px-4">
+          <router-link to="/user/election">Pemilihan</router-link>
         </li>
       </div>
       <li @click="onLogout()" class="flex items-center px-4">
