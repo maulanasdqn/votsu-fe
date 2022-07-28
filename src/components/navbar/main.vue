@@ -13,12 +13,17 @@ const isDark = ref(false)
 </script>
 <template>
   <nav
-    class="sticky top-0 dark:bg-gray-800 md:bg-white bg-white flex w-full h-auto py-4 md:pl-16 justify-between transition-all ease-in-out font-sans"
+    class="sticky top-0 dark:bg-gray-800 bg-white flex w-full h-20 py-4 md:pl-16 justify-between transition-all ease-in-out font-sans"
   >
     <div class="flex px-4 gap-x-4 items-center">
       <h1 class="dark:text-white text-gray-600 font-bold text-3xl">
         <img width="60" :src="Logo" alt="" />
       </h1>
+    </div>
+    <div class="items-center text-gray-600 flex gap-8 cursor-pointer">
+      <span><a href="#home">Home</a></span>
+      <span> <a href="#candidat">About</a></span>
+      <span><a href="#contact">Contact</a></span>
     </div>
 
     <div class="flex justify-beetween gap-x-4 items-center px-6 cursor-pointer">
