@@ -5,6 +5,7 @@ import Button from '../../components/common/VtsButton.vue'
 import { TokenService } from '../../services/token/index.service'
 import useAuthStore from '../../store/users'
 import Loading from '../../components/loading/index.vue'
+import Logo from '../../assets/logo/LogoVotsu.svg'
 
 const store = useAuthStore()
 const router = useRouter()
@@ -40,18 +41,23 @@ const checkValid = () => {
 </script>
 <template>
   <div
-    class="flex h-screen justify-start items-center shadow-lg transition-all ease-in-out w-full dark:bg-gray-700 md:bg-white bg-yellow-100"
+    class="flex h-screen bg-gray-200 justify-start items-center shadow-lg transition-all ease-in-out w-full dark:bg-gray-700 md:bg-white bg-yellow-100"
   >
     <div
       class="flex lg:w-1/2 w-full h-full justify-center bg-white md:bg-white dark:bg-gray-700 dark:md:bg-gray-500 h-auto p-8 flex-col gap-y-6"
     >
-      <div class="flex flex-col gap-y-8 w-full">
+      <div class="flex flex-col gap-y-8 px-18 w-full">
         <div class="flex justify-start items-start gap-y-2 flex-col">
+          <div class="flex gap-2 py-8">
+            <img width="30" :src="Logo" alt="" />
+            <h1 class="py-2 font-bold">VOTSU</h1>
+          </div>
           <h1
             class="dark:text-white font-sans text-gray-800 font-bold md:text-3xl text-2xl"
           >
             Selamat datang kembali
           </h1>
+
           <span
             class="md:text-md text-sm text-left font-medium font-sans dark:text-white text-gray-500"
             >Silahkan masuk dengan akun mu</span
@@ -122,9 +128,16 @@ const checkValid = () => {
       </div>
     </div>
     <div
-      class="lg:flex hidden w-full md:px-6 justify-center bg-gradient-to-bl from-blue-700 via-blue-400 to-blue-500 dark:bg-gray-700 h-full items-center"
+      class="lg:flex items-center hidden w-1/2 md:px-6 justify-center bg-gradient-to-bl from-green-700 via-green-400 to-green-500 dark:bg-gray-700 h-full"
     >
-      <div class="flex flex-col gap-y-4 w-full"></div>
+      <div class="w-full px-8">
+        <div class="flex flex-col w-full justify-center">
+          <h1 class="text-white font-bold text-5xl">
+            "Injustice Never Rules Forever"
+          </h1>
+          <p class="text-white py-2 text-2xl">__Seneca</p>
+        </div>
+      </div>
     </div>
     <Loading v-if="isLoading" />
   </div>

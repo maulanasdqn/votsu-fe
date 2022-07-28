@@ -20,10 +20,10 @@ const isDark = ref(false)
         <img width="60" :src="Logo" alt="" />
       </h1>
     </div>
-    <div class="items-center text-gray-600 flex gap-8 cursor-pointer">
+    <div class="items-center hidden md:flex text-gray-600 gap-8 cursor-pointer">
       <span><a href="#home">Home</a></span>
-      <span> <a href="#candidat">About</a></span>
-      <span><a href="#contact">Contact</a></span>
+      <span> <a href="#about">About</a></span>
+      <span> <a href="#candidat">Candidate</a></span>
     </div>
 
     <div class="flex justify-beetween gap-x-4 items-center px-6 cursor-pointer">
@@ -38,7 +38,7 @@ const isDark = ref(false)
         >
         <router-link
           to="/register"
-          class="text-1xl font-bold flex items-center justify-center border-2 dark:bg-gray-800 bg-gray-700 dark:rounded-none rounded-lg dark:border-none p-2 text-white"
+          class="text-1xl font-bold flex items-center justify-center border-2 dark:bg-gray-800 bg-green-800 dark:rounded-none rounded-lg dark:border-none p-2 text-white"
           >Daftar</router-link
         >
       </div>
