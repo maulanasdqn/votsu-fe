@@ -47,10 +47,10 @@ const onLogout = () => {
     <ul class="relative px-1 gap-y-2 flex flex-col">
       <div v-if="currentUsers.role === 'Panitia'">
         <li class="flex items-center px-4">
-          <router-link to="/user/dashboard">Akun</router-link>
+          <router-link to="/committee/users">Akun</router-link>
         </li>
         <li class="flex items-center px-4">
-          <router-link to="/user/election">Kandidat</router-link>
+          <router-link to="/committee/candidate">Kandidat</router-link>
         </li>
       </div>
       <div v-else-if="currentUsers.role === 'Pemilih'">

@@ -41,12 +41,12 @@ const checkValid = () => {
 </script>
 <template>
   <div
-    class="flex h-screen justify-center items-center overflow-visible shadow-lg transition-all ease-in-out w-full md:bg-white"
+    class="flex h-screen bg-gray-200 justify-start items-center shadow-lg transition-all ease-in-out w-full dark:bg-gray-700 md:bg-white bg-yellow-100"
   >
     <div
-      class="flex w-full lg:w-1/2 md:px-18 px-6 h-full justify-center bg-white md:bg-white dark:bg-gray-700 h-full flex-col gap-y-6 overflow-y-auto"
+      class="flex lg:w-1/2 w-full h-full justify-center bg-white md:bg-white dark:bg-gray-700 dark:md:bg-gray-500 h-auto p-8 flex-col gap-y-6"
     >
-      <div class="flex flex-col gap-y-6 py-6 w-full h-full">
+      <div class="flex flex-col gap-y-8 px-18 w-full">
         <div class="flex justify-start items-start gap-y-2 flex-col">
           <div class="flex gap-2 py-8">
             <img width="30" :src="Logo" alt="" />
@@ -57,14 +57,17 @@ const checkValid = () => {
           >
             Selamat datang kembali
           </h1>
+
           <span
             class="md:text-md text-sm text-left font-medium font-sans dark:text-white text-gray-500"
             >Silahkan masuk dengan akun mu</span
           >
         </div>
         <form @submit.prevent="onSubmit(email, password)">
-          <div class="flex flex-col items-center justify-center w-full gap-y-3">
-            <div class="flex flex-col gap-y-3 w-full items-center">
+          <div
+            class="flex flex-col h-full items-center justify-center w-full gap-y-6"
+          >
+            <div class="flex flex-col gap-y-6 w-full items-center">
               <div class="flex flex-col w-full gap-y-6">
                 <div class="flex flex-col gap-y-3">
                   <label
