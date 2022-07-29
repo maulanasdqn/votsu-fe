@@ -25,7 +25,7 @@ import Gambar from '../../assets/Landing.png'
               </a>
             </div>
           </div>
-          <img :src="Gambar" alt="" />
+          <img class="py-4" :src="Gambar" alt="" />
         </div>
       </div>
     </section>
@@ -33,58 +33,70 @@ import Gambar from '../../assets/Landing.png'
   <Layout>
     <section id="about" class="h-screen">
       <div class="flex flex-col justify-center items-center pt-25">
-        <h1 class="text-4xl font-bold text-left text-center">
+        <h1 class="md:text-4xl text-2xl font-bold text-left text-center">
           Keuntungan memakai Votsu
         </h1>
-        <div class="grid gap-4 py-16 px-10 grid-cols-5">
-          <div class="p-12 bg-green-700 rounded">
-            <div class="flex flex-col py-4">
+        <div class="grid gap-4 py-16 px-10 md:grid-cols-5 grid-cols-3">
+          <div class="md:p-12 p-8 bg-green-700 rounded">
+            <div class="flex flex-col py-6">
               <img
+                width="100"
                 src="https://img.icons8.com/external-basicons-line-edtgraphics/100/000000/external-Cellphone-device-activities-basicons-line-edtgraphics-3.png"
               />
-              <h1 class="text-white font-bold py-2 text-center">
+              <h1
+                class="text-white md:text-xl text-sm font-bold py-2 text-center"
+              >
                 Simpel dan Mudah Digunakan
               </h1>
             </div>
           </div>
-          <div class="p-20 bg-green-700 rounded">
-            <div class="flex flex-col py-4">
+          <div class="md:p-20 p-8 bg-green-700 rounded">
+            <div class="flex flex-col md:py-4 py-8 pr-3">
               <img
+                width="200"
                 src="https://img.icons8.com/ios-filled/50/000000/you-plural.png"
               />
-              <h1 class="text-center py-2 text-white font-bold">
+              <h1
+                class="text-center md:text-xl text-sm md:py-2 py-4 text-white font-bold"
+              >
                 Terhindar Dari Kecurangan
               </h1>
             </div>
           </div>
-          <div class="p-20 bg-green-700 rounded">
+          <div class="md:p-20 p-8 bg-green-700 rounded">
             <div class="flex flex-col py-6">
               <img
                 src="https://img.icons8.com/ios-filled/100/000000/elections.png"
               />
-              <h1 class="text-white text-center py-2 font-bold">
-                Mengantisipasi Pemilih Gelap
+              <h1
+                class="text-white md:text-xl text-sm text-center py-2 font-bold"
+              >
+                Antisipasi Pemilih Gelap
               </h1>
             </div>
           </div>
-          <div class="p-20 bg-green-700 rounded">
+          <div class="md:p-20 p-8 bg-green-700 rounded">
             <div class="flex flex-col py-6">
               <img
                 src="https://img.icons8.com/external-xnimrodx-lineal-xnimrodx/64/000000/external-voting-politics-xnimrodx-lineal-xnimrodx-2.png"
               />
-              <h1 class="text-center py-2 text-white font-bold">
+              <h1
+                class="text-center md:text-xl text-sm py-2 text-white font-bold"
+              >
                 Dimana Saja dan Kapan Saja
               </h1>
             </div>
           </div>
-          <div class="p-20 bg-green-700 rounded">
+          <div class="md:p-20 p-8 bg-green-700 rounded">
             <div>
               <img
                 class="py-4"
                 src="https://img.icons8.com/ios-filled/100/000000/laptop.png"
               />
-              <h1 class="py-2 text-white font-bold">
-                Menggunakan Teknologi Terbaru
+              <h1
+                class="md:py-2 text-white md:text-xl text-sm text-center font-bold"
+              >
+                Dengan Teknologi Terbaru
               </h1>
             </div>
           </div>

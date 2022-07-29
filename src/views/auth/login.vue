@@ -44,9 +44,9 @@ const checkValid = () => {
     class="flex h-screen bg-gray-200 justify-start items-center shadow-lg transition-all ease-in-out w-full dark:bg-gray-700 md:bg-white bg-yellow-100"
   >
     <div
-      class="flex lg:w-1/2 w-full h-full justify-center bg-white md:bg-white dark:bg-gray-700 dark:md:bg-gray-500 h-auto p-8 flex-col gap-y-6"
+      class="flex lg:w-1/2 w-full h-full justify-center bg-white md:bg-white dark:bg-gray-700 dark:md:bg-gray-500 h-auto md:p-8 flex-col gap-y-6"
     >
-      <div class="flex flex-col gap-y-8 px-18 w-full">
+      <div class="flex flex-col md:gap-y-8 md:px-18 px-6 w-full">
         <div class="flex justify-start items-start gap-y-2 flex-col">
           <div class="flex gap-2 py-8">
             <img width="30" :src="Logo" alt="" />
