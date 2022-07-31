@@ -1,93 +1,33 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import useAuthStore from '../../store/users'
-import Button from '../../components/common/VtsButton.vue'
-import Logo from '../../assets/logo/LogoVotsu.svg'
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { userData } from "../../composables/auth";
+import useAuthStore from "../../store/auth";
+import { RegisterType } from "../../utilities/types/register.types";
+import Logo from "../../assets/logo/LogoVotsu.svg";
 
-const store = useAuthStore()
-const router = useRouter()
-
-const fullname = ref('')
-const email = ref('')
-const password = ref('')
-const confirm_password = ref('')
-const nim = ref('')
-const grade = ref('')
-const isLoading = ref(false)
-
-const fullnameValidation = () => {
-  if (fullname.value.length < 5 && fullname.value.length !== 0) return false
-  return true
-}
-
-const studentIdValidation = () => {
-  if (nim.value.length < 14 && nim.value.length !== 0) return false
-  return true
-}
-
-const studentIdValidationInformatics = () => {
-  if (!nim.value.includes('410370062') && nim.value.length !== 0) return false
-  return true
-}
-
-const gradeValidation = () => {
-  if (grade.value.length < 1 && grade.value.length !== 0) return false
-  return true
-}
-
-const emailValidation = () => {
-  const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
-  if (!regexEmail.test(email.value) && email.value.length !== 0) return false
-  return true
-}
-
-const passwordValidation = () => {
-  if (password.value.length > 5 && password.value.length !== 0) return true
-  return false
-}
-
-const confirmPasswordValidation = () => {
-  if (
-    JSON.stringify(confirm_password.value) !== JSON.stringify(password.value) &&
-    confirm_password.value.length !== 0
-  )
-    return true
-  return false
-}
-
-const checkValid = () => {
-  if (
-    fullname.value.length > 5 &&
-    grade.value.length > 1 &&
-    nim.value.includes('410370062') &&
-    email.value.includes('@') &&
-    email.value.length > 5 &&
-    password.value.length > 5 &&
-    password.value === confirm_password.value
-  ) {
-    return true
-  } else {
-    return false
-  }
-}
+const store = useAuthStore();
+const router = useRouter();
+const isLoading = ref(false);
 
 const register = async () => {
   try {
-    isLoading.value = true
-    await store.register(
-      email.value,
-      password.value,
-      fullname.value,
-      grade.value,
-      nim.value
-    )
-    isLoading.value = false
-    router.push('/login')
+    isLoading.value = true;
+    const payload: RegisterType = {
+      email: userData.value.email,
+      password: userData.value.password,
+      fullname: userData.value.fullname,
+      grade: userData.value.grade,
+      departement: userData.value.departement,
+      studentId: userData.value.studentId,
+    };
+    await store.register(payload);
+    isLoading.value = false;
+    router.push("/login");
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
-}
+};
 </script>
 <template>
   <div
@@ -123,17 +63,12 @@ const register = async () => {
                     >Nama Lengkap <span class="text-red-700 font-bold">*</span>
                   </label>
                   <input
-                    v-model="fullname"
+                    v-model="userData.fullname"
                     type="text"
                     name="fullname"
                     class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:ring-yellow-200 dark:focus:ring-gray-400 w-auto rounded-md sm:text-sm focus:ring-1"
                     placeholder="Maulana Sodiqin"
                   />
-                  <span
-                    v-if="!fullnameValidation()"
-                    class="text-red-900 font-xs font-medium"
-                    >Nama harus lebih dari 3 karakter !</span
-                  >
                 </div>
                 <div class="flex flex-col gap-y-3">
                   <label
@@ -143,22 +78,12 @@ const register = async () => {
                     <span class="text-red-700 font-bold">*</span>
                   </label>
                   <input
-                    v-model="nim"
+                    v-model="userData.studentId"
                     type="text"
                     name="student_id"
                     class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:ring-yellow-200 dark:focus:ring-gray-400 w-auto rounded-md sm:text-sm focus:ring-1"
                     placeholder="410370062*****"
                   />
-                  <span
-                    v-if="!studentIdValidation()"
-                    class="text-red-900 font-xs font-medium"
-                    >NIM harus lebih dari 16 karakter !</span
-                  >
-                  <span
-                    v-if="!studentIdValidationInformatics()"
-                    class="text-red-900 font-xs font-medium"
-                    >NIM anda bukan dari Teknik Informatika !</span
-                  >
                 </div>
                 <div class="flex flex-col gap-y-3">
                   <label
@@ -168,17 +93,12 @@ const register = async () => {
                     <span class="text-red-700 font-bold">*</span>
                   </label>
                   <input
-                    v-model="grade"
+                    v-model="userData.grade"
                     type="text"
                     name="grade"
                     class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:ring-yellow-200 dark:focus:ring-gray-400 w-auto rounded-md sm:text-sm focus:ring-1"
                     placeholder="A1"
                   />
-                  <span
-                    v-if="!gradeValidation()"
-                    class="text-red-900 font-xs font-medium"
-                    >Kelas harus minimal 2 karakter !</span
-                  >
                 </div>
                 <div class="flex flex-col gap-y-3">
                   <label
@@ -187,17 +107,12 @@ const register = async () => {
                     >Email <span class="text-red-700 font-bold">*</span>
                   </label>
                   <input
-                    v-model="email"
+                    v-model="userData.email"
                     type="email"
                     name="email"
                     class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:ring-yellow-200 dark:focus:ring-gray-400 w-auto rounded-md sm:text-sm focus:ring-1"
                     placeholder="maulana@psu.org"
                   />
-                  <span
-                    v-if="!emailValidation()"
-                    class="text-red-900 font-xs font-medium"
-                    >Email tidak valid !</span
-                  >
                 </div>
                 <div class="flex flex-col gap-y-3">
                   <label
@@ -206,17 +121,12 @@ const register = async () => {
                     >Kata sandi <span class="text-red-700 font-bold">*</span>
                   </label>
                   <input
-                    v-model="password"
+                    v-model="userData.password"
                     type="password"
                     name="password"
                     class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:border-yellow-300 dark:focus:ring-gray-400 focus:ring-yellow-200 w-auto rounded-md sm:text-sm focus:ring-1"
                     placeholder="Masukkan kata sandi anda"
                   />
-                  <span
-                    v-if="!passwordValidation()"
-                    class="text-red-900 font-xs font-medium"
-                    >Password harus lebih dari 6 karakter !</span
-                  >
                 </div>
                 <div class="flex flex-col gap-y-3">
                   <label
@@ -226,17 +136,12 @@ const register = async () => {
                     <span class="text-red-700 font-bold">*</span>
                   </label>
                   <input
-                    v-model="confirm_password"
+                    v-model="userData.confirmPassword"
                     type="password"
                     name="password"
                     class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:border-yellow-300 dark:focus:ring-gray-400 focus:ring-yellow-200 w-auto rounded-md sm:text-sm focus:ring-1"
                     placeholder="Masukkan lagi kata sandi anda"
                   />
-                  <span
-                    v-if="confirmPasswordValidation()"
-                    class="text-red-900 font-xs font-medium"
-                    >Konfirmasi password tidak sesuai !</span
-                  >
                 </div>
               </div>
             </div>
@@ -248,11 +153,7 @@ const register = async () => {
               <input type="checkbox" name="" id="" />
             </div>
 
-            <Button
-              class="w-full"
-              text="Daftar Sekarang"
-              :disabled="!checkValid()"
-            />
+            <Button class="w-full" text="Daftar Sekarang" />
 
             <span class="text-gray-500 dark:text-white font-medium font-sans"
               >Sudah memiliki akun?

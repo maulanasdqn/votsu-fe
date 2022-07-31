@@ -1,19 +1,5 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from 'vue'
-import useAuthStore from '../../../store/users'
-
-const store = useAuthStore()
-
-const currentUsers = ref({
-  fullname: '',
-  role: '',
-})
-
-onBeforeMount(async () => {
-  const resUsers = await store.me()
-  currentUsers.value.fullname = resUsers.fullname
-  currentUsers.value.role = resUsers.role_id === 1 ? 'Pemilih' : 'Panitia'
-})
 
 interface props {
   title?: string;
@@ -24,6 +10,8 @@ withDefaults(defineProps<props>(), {
   title: "",
   user: "",
 });
+
+
 </script>
 <template>
   <header

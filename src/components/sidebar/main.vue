@@ -1,28 +1,82 @@
-<script setup lang="ts">
-import Avatar from 'vue-boring-avatars'
-import { ref, onBeforeMount } from 'vue'
-import { TokenService } from '../../services/token/index.service'
-import { useRouter } from 'vue-router'
-import useAuthStore from '../../store/users'
+<script lang="ts">
+import {
+  onLogout,
+  userData,
+  getAuthenticatedUser,
+  setAuthenticatedUser,
+} from "../../composables/auth";
+import ProfileAvatar from "vue-profile-avatar";
 
-const store = useAuthStore()
-const router = useRouter()
+const menuLink = [
+  {
+    to: "/user/dashboard",
+    name: "Dashboard",
+    permission: 1,
+    icon: "fa-solid fa-chart-line",
+  },
+  {
+    to: "/user/election",
+    name: "Pemilihan",
+    permission: 1,
+    icon: "fa-solid fa-users",
+  },
 
-const currentUsers = ref({
-  fullname: '',
-  role: '',
-})
+  {
+    to: "/crew/dashboard",
+    name: "Dashboard",
+    permission: 2,
+    icon: "fa-solid fa-chart-line",
+  },
+  {
+    to: "/crew/users",
+    name: "Akun Pemilih",
+    permission: 2,
+    icon: "fa-solid fa-chart-line",
+  },
+  {
+    to: "/crew/candidate",
+    name: "Akun Kandidat",
+    permission: 2,
+    icon: "fa-solid fa-chart-line",
+  },
+  {
+    to: "/",
+    name: "Keluar",
+    permission: 2,
+    icon: "fa-solid fa-backspace",
+  },
+  {
+    to: "/",
+    name: "Keluar",
+    permission: 1,
+    icon: "fa-solid fa-backspace",
+  },
+];
 
-onBeforeMount(async () => {
-  const resUsers = await store.me()
-  currentUsers.value.fullname = resUsers.fullname
-  currentUsers.value.role = resUsers.role_id === 1 ? 'Pemilih' : 'Panitia'
-})
+const menuFiltered = () => {
+  return menuLink.filter((x) => x.permission === userData.value.role);
+};
 
-const onLogout = () => {
-  TokenService.removeToken()
-  router.push('/')
-}
+export default {
+  components: {
+    ProfileAvatar,
+  },
+  async setup() {
+    if (!localStorage.getItem("authenticatedUser")) {
+      const resUser = await setAuthenticatedUser();
+      userData.value.fullname = await resUser?.fullname;
+      userData.value.role = await resUser?.role;
+    }
+    const resUser = await getAuthenticatedUser();
+    userData.value.fullname = await resUser?.fullname;
+    userData.value.role = await resUser?.role;
+    return {
+      userData,
+      onLogout,
+      menuFiltered,
+    };
+  },
+};
 </script>
 <template>
   <div
@@ -32,38 +86,37 @@ const onLogout = () => {
     <div class="pt-4 px-6">
       <div class="flex items-center bg-blue-300 rounded-md">
         <div class="lg:flex hidden items-center justify-center w-auto px-2">
-          <Avatar :name="currentUsers.fullname" />
+          <ProfileAvatar :username="userData.fullname" color-type="pastel" />
         </div>
         <div class="grow bg-blue-400 py-2 px-2 rounded-lg">
           <p class="text-sm font-semibold text-white">
-            {{ currentUsers.fullname }}
+            {{ userData.fullname }}
           </p>
           <span class="text-sm font-normal text-white">{{
-            currentUsers.role
+            userData?.role === 1 ? "Pemilih" : "Panitia"
           }}</span>
         </div>
       </div>
     </div>
-    <ul class="relative px-1 gap-y-2 flex flex-col">
-      <div v-if="currentUsers.role === 'Panitia'">
-        <li class="flex items-center px-4">
-          <router-link to="/user/dashboard">Akun</router-link>
-        </li>
-        <li class="flex items-center px-4">
-          <router-link to="/user/election">Kandidat</router-link>
-        </li>
-      </div>
-      <div v-else-if="currentUsers.role === 'Pemilih'">
-        <li class="flex items-center px-4">
-          <router-link to="/user/dashboard">Dashboard</router-link>
-        </li>
-        <li class="flex items-center px-4">
-          <router-link to="/user/election">Pemilihan</router-link>
-        </li>
-      </div>
-      <li @click="onLogout()" class="flex items-center px-4">
-        <span>Logout</span>
-      </li>
-    </ul>
+    <hr class="bg-gray-200 text-gray-200" />
+    <div class="flex flex-col">
+      <ul
+        class="relative pt-1 px-6 flex flex-col"
+        v-for="(menu, index) in menuFiltered()"
+        :key="index"
+      >
+        <router-link
+          v-slot="{ isActive }"
+          @click="menu.name === 'Keluar' ? onLogout() : ''"
+          class="gap-y-1 flex flex-col"
+          :to="menu.to"
+        >
+          <span class="p-4 rounded-lg" :class="isActive ? 'bg-gray-100' : 'bg-white'">
+            <font-awesome-icon :icon="menu.icon" />
+            {{ menu.name }}
+          </span>
+        </router-link>
+      </ul>
+    </div>
   </div>
 </template>

@@ -1,5 +1,11 @@
+<script setup lang="ts">
+import { useCommonStore } from './store/common'
+const store = useCommonStore()
+
+</script>
 <template>
   <router-view />
+  <Loading v-if="store.isLoading"/>
 </template>
 
 <style>
