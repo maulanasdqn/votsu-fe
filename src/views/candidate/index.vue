@@ -1,23 +1,32 @@
+<script setup lang="ts">
+import { onMounted } from "vue";
+import useCandidateStore from "../../store/candidate";
+
+const store = useCandidateStore();
+
+onMounted(async () => {
+  store.fetchCandidate();
+});
+</script>
 <template>
-  <section class="flex flex-col justify-between w-full h-screen items-center">
-    <div class="flex w-full h-full">
-      <Sidebar />
-      <div class="flex items-center ml-0 md:ml-20 gap-8">
-        <Card
-          candidate="Fahmi Sugiarto"
-          image="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1184px-Vue.js_Logo_2.svg.png"
-        />
-        <Card
-          candidate="Fahmi Sugiarto"
-          image="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1184px-Vue.js_Logo_2.svg.png"
-        />
-        <Card
-          candidate="Fahmi Sugiarto"
-          image="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1184px-Vue.js_Logo_2.svg.png"
-        />
+  <Dashboard>
+    <Empty
+      v-if="!store.getCandidate"
+      text="Belum ada kandidat yang menyalonkan diri"
+    />
+    <div
+      v-for="(item, index) in store.getCandidate"
+      :key="index"
+      class="flex flex-col w-full h-full items-center justify-center gap-x-4"
+    >
+      <div class="flex flex-col gap-y-4 bg-blue-100 w-auto p-4 rounded-lg max-w-auto">
+        <h1 class="text-black-900 font-medium text-2xl">
+          {{ item?.fullname }}
+        </h1>
+        <h1 class="text-black-900 font-medium text-2xl">
+          {{ item?.student_id }}
+        </h1>
       </div>
     </div>
-    <Header user="MS" title="Dashboard" />
-    <BottomNavbar />
-  </section>
+  </Dashboard>
 </template>

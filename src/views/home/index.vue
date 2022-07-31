@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Navbar from '../../components/navbar/main.vue'
-import Layout from '../../components/layout/VtsLayout.vue'
-import Gambar from '../../assets/Landing.png'
+import Navbar from "../../components/navbar/main.vue";
+import Layout from "../../components/layout/VtsLayout.vue";
+import Gambar from "../../assets/Landing.png";
 </script>
 <template>
   <Navbar />

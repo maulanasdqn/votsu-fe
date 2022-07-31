@@ -1,43 +1,31 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import Button from '../../components/common/VtsButton.vue'
-import { TokenService } from '../../services/token/index.service'
-import useAuthStore from '../../store/users'
-import Loading from '../../components/loading/index.vue'
-import Logo from '../../assets/logo/LogoVotsu.svg'
+import { useRouter } from "vue-router";
+import { TokenService } from "../../services/token/index.service";
+import useAuthStore from "../../store/auth/index";
+import { userData, commonData } from "../../composables/auth/index";
+import { LoginTypes } from "../../utilities/types/login.types";
+import { startLoading, finishLoading } from "../../composables/common";
 
-const store = useAuthStore()
-const router = useRouter()
-const isLoading = ref(false)
+const store = useAuthStore();
+const router = useRouter();
 
-const onSubmit = async (email: any, password: any) => {
+const onSubmit = async () => {
+  startLoading();
   try {
-    isLoading.value = true
-    await store.login(email, password)
+    const payload: LoginTypes = {
+      email: userData.value.email,
+      password: userData.value.password,
+    };
+    await store.login(payload);
     if (TokenService.getToken()) {
-      router.push('/user/dashboard')
+      router.push("/user/dashboard");
     }
-    isLoading.value = false
-  } catch (e) {
-    console.log(e)
+    finishLoading();
+  } catch (error: any) {
+    commonData.value.message = error?.message;
+    finishLoading();
   }
-}
-
-const email = ref('')
-const password = ref('')
-
-const checkValid = () => {
-  if (
-    email.value.includes('@') &&
-    email.value.length > 5 &&
-    password.value.length >= 6
-  ) {
-    return true
-  } else {
-    return false
-  }
-}
+};
 </script>
 <template>
   <div
@@ -49,7 +37,7 @@ const checkValid = () => {
       <div class="flex flex-col md:gap-y-8 md:px-18 px-6 w-full">
         <div class="flex justify-start items-start gap-y-2 flex-col">
           <div class="flex gap-2 py-8">
-            <img width="30" :src="Logo" alt="" />
+            <img width="30" src="../../assets/logo/LogoVotsu.svg" alt="" />
             <h1 class="py-2 font-bold">VOTSU</h1>
           </div>
           <h1
@@ -63,7 +51,7 @@ const checkValid = () => {
             >Silahkan masuk dengan akun mu</span
           >
         </div>
-        <form @submit.prevent="onSubmit(email, password)">
+        <form @submit.prevent="onSubmit()">
           <div
             class="flex flex-col h-full items-center justify-center w-full gap-y-6"
           >
@@ -76,7 +64,7 @@ const checkValid = () => {
                     >Email <span class="text-red-700 font-bold">*</span>
                   </label>
                   <input
-                    v-model="email"
+                    v-model="userData.email"
                     type="email"
                     name="email"
                     class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:ring-yellow-200 dark:focus:ring-gray-400 w-auto rounded-md sm:text-sm focus:ring-1"
@@ -87,10 +75,11 @@ const checkValid = () => {
                   <label
                     for="password"
                     class="font-sans dark:text-white text-gray-500 text-sm"
-                    >Kata sandi <span class="text-red-700 font-bold">*</span>
+                    >Kata sandi
+                    <span class="text-red-700 font-bold">*</span>
                   </label>
                   <input
-                    v-model="password"
+                    v-model="userData.password"
                     type="password"
                     name="password"
                     class="px-3 py-3 bg-gray-100 border shadow-md border-blue-200 dark:border-gray-300 placeholder-slate-500 focus:outline-none focus:border-yellow-300 dark:focus:ring-gray-400 focus:ring-yellow-200 w-auto rounded-md sm:text-sm focus:ring-1"
@@ -107,11 +96,7 @@ const checkValid = () => {
                 </router-link>
               </span>
             </div>
-            <Button
-              class="w-full"
-              text="Masuk Sekarang"
-              :disabled="!checkValid()"
-            />
+            <Button class="w-full" text="Masuk Sekarang" />
             <span class="text-gray-500 dark:text-white font-medium font-sans"
               >Belum memiliki akun?
               <router-link class="text-blue-400" to="/register"
@@ -139,6 +124,5 @@ const checkValid = () => {
         </div>
       </div>
     </div>
-    <Loading v-if="isLoading" />
   </div>
 </template>

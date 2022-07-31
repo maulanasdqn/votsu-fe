@@ -1,76 +1,58 @@
-import { defineStore } from 'pinia'
-import { AuthService } from '../../services/auth/index.service'
-import { TokenService } from '../../services/token/index.service'
-import { getUsers } from '../../services/user/index.service'
+import { defineStore } from "pinia";
+import { UsersService } from "../../services/user/index.service";
 
-const useAuthStore = defineStore('auth', {
+const useUsersStore = defineStore("users", {
   state: () => ({
-    authenticated: false,
-    accessToken: TokenService.getToken(),
-    refreshToken: TokenService.getRefreshToken(),
     users: [],
+    user: {},
+    me: {},
   }),
 
   getters: {
-    getUser(state) {
-      return state.users
+    getUsers(state) {
+      return state.users;
     },
 
-    getUserCount(state): number {
-      return state.users.length
+    getUserMe(state) {
+      return state.me;
+    },
+
+    getUserById(state) {
+      return state.user;
     },
   },
 
   actions: {
-    async login(email: any, password: any) {
+    async fetchUsers() {
       try {
-        const token = await AuthService.login(email, password)
-        this.accessToken = token
-        this.authenticated = true
-        return token
-      } catch (e) {
-        console.log(e)
+        const res = await UsersService.fetchUser();
+        this.users = res;
+        return res;
+      } catch (error) {
+        throw error;
       }
-
-      return false
     },
 
-    async register(
-      email: any,
-      password: any,
-      fullname: any,
-      grade: any,
-      studentId: any
-    ) {
+    async retrieveUserMe() {
       try {
-        const res = await AuthService.signup(
-          email,
-          password,
-          fullname,
-          grade,
-          studentId
-        )
-        this.authenticated = true
-        return res
-      } catch (e) {
-        console.log(e)
+        const res = await UsersService.retrieveMe();
+        this.me = res[0]
+        return res[0];
+      } catch (error) {
+        throw error;
       }
-
-      return false
     },
 
-    async me() {
+    async retrieveUser(id: number) {
       try {
-        const res = await getUsers()
-        this.users = res.data
-        return res.data
-      } catch (e) {
-        console.log(e)
+        const res = await UsersService.retrieveUser(id);
+        this.user = res[0];
+        return res[0];
+      } catch (error) {
+        throw error;
       }
-
-      return false
     },
   },
-})
+});
 
-export default useAuthStore
+export default useUsersStore;

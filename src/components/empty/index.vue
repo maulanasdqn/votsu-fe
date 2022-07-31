@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import BannerEmpty from "../../assets/illustrations/Bloging-Line.svg";
-import Button from "../common/VtsButton.vue";
 
 interface props {
   text?: string;

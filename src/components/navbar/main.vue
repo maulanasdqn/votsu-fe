@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import { onBeforeMount, onUpdated, computed, ref, watch } from 'vue'
 import { TokenService } from '../../services/token/index.service'
-import useThemeStore from '../../store/theme'
 import Logo from '../../assets/logo/LogoVotsu.svg'
-
-const storeTheme = useThemeStore()
 
 const isLoggedIn = TokenService.getToken()
 const isMobileMenu = ref(false)
-
 const isDark = ref(false)
 </script>
 <template>
