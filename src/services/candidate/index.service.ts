@@ -50,7 +50,7 @@ const CandidateService = {
   },
 
   createCandidate: async function (payload: CandidateDto) {
-    const { fullname, email, image, departement, grade, studentId } = payload;
+    const { fullname, email, image, departement, grade, student_id } = payload;
     const requestData = {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -61,7 +61,7 @@ const CandidateService = {
         image,
         departement,
         grade,
-        student_id: studentId,
+        student_id,
       },
     };
 

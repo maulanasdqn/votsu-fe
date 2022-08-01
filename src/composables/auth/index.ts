@@ -6,7 +6,7 @@ import { ref } from "vue";
 export const setAuthenticatedUser = async () => {
   const UserStore = useUsersStore();
   const currentUser = await UserStore.retrieveUserMe();
-  const resUser = useStorageAsync(
+  const resUser: any = useStorageAsync(
     "authenticatedUser",
     JSON.stringify(currentUser)
   );
