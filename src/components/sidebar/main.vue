@@ -5,7 +5,6 @@ import {
   getAuthenticatedUser,
   setAuthenticatedUser,
 } from "../../composables/auth";
-import ProfileAvatar from "vue-profile-avatar";
 
 const menuLink = [
   {
@@ -58,9 +57,6 @@ const menuFiltered = () => {
 };
 
 export default {
-  components: {
-    ProfileAvatar,
-  },
   async setup() {
     if (!localStorage.getItem("authenticatedUser")) {
       const resUser = await setAuthenticatedUser();

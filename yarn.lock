@@ -1362,11 +1362,6 @@ vue-demi@*:
   resolved "https://registry.npmjs.org/vue-demi/-/vue-demi-0.12.5.tgz"
   integrity sha512-BREuTgTYlUr0zw0EZn3hnhC3I6gPWv+Kwh4MCih6QcAeaTlaIX0DwOVN0wHej7hSvDPecz4jygy/idsgKfW58Q==
 
-vue-profile-avatar@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/vue-profile-avatar/-/vue-profile-avatar-1.2.0.tgz#7920656a402b4679c642ab598978e606d1bca156"
-  integrity sha512-fCNh4yaVTMmgEUakDQe8ff05etqwU3gbgAIxH3s56A/fZRhpUEfEwxUvqHWX5mFPj08XgRBdUWM7IPNWrDGakg==
-
 vue-router@4:
   version "4.0.15"
   resolved "https://registry.npmjs.org/vue-router/-/vue-router-4.0.15.tgz"

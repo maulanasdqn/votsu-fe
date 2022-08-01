@@ -5,5 +5,5 @@ export interface CandidateDto {
   grade: string;
   departement: string;
   image: string;
-  studentId: string;
+  student_id: string;
 }

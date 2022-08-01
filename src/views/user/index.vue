@@ -12,7 +12,7 @@ onMounted(async () => {
 <template>
   <Dashboard>
     <Empty
-      v-if="!userData.is_hosen"
+      v-if="!userData.is_chosen"
       has-button
       text="Anda belum memilih kandidat manapun"
       to="/user/election"
